@@ -1,0 +1,346 @@
+/* ---------- members hero ---------- */
+
+.members-hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 168px 24px 36px;
+    box-sizing: border-box;
+}
+
+.members-hero .content {
+    max-width: 560px;
+    text-align: center;
+}
+
+.members-hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0 0 12px;
+}
+
+.members-hero .subtitle {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+}
+
+/* ---------- members grid ---------- */
+
+.members-section {
+    width: 100%;
+    max-width: 1120px;
+    padding: 20px 24px 100px;
+    box-sizing: border-box;
+}
+
+.members-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 70px 0;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* Without this, the hidden attribute can't win the display tie-break
+   against the rules above, so toggling .hidden in JS silently does
+   nothing and the spinner never actually goes away. */
+.members-status[hidden] {
+    display: none;
+}
+
+.members-status.error {
+    color: #c0362c;
+}
+
+.members-status .spin {
+    font-size: 18px;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    row-gap: 18px;
+}
+
+.members-grid[hidden] {
+    display: none;
+}
+
+/* Each cell is a fixed 1:1 placeholder so the grid never reflows when a
+   card expands — the expanded card overlays on top of it instead. */
+.member-card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+.member-card-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 26px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0;
+    overflow: hidden;
+    cursor: pointer;
+    contain: layout paint;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+}
+
+.member-card:focus-visible {
+    outline: none;
+}
+
+.member-card:focus-visible .member-card-inner {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+/* ---------- expanded (click) state: 2:1 ---------- */
+/* Width/height are set inline in px by JS right before this class is
+   toggled, so the transition always animates between two concrete
+   pixel values instead of interpolating aspect-ratio + calc(), which
+   forces a full layout pass every frame and looks choppy. */
+
+.member-card.expanded .member-card-inner {
+    aspect-ratio: auto;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 20px;
+    padding: 26px;
+    cursor: default;
+    box-shadow: 0 20px 40px rgba(10, 10, 10, 0.12);
+    z-index: 30;
+}
+
+/* When there isn't room to grow rightward (last column), grow leftward. */
+.member-card.expand-left .member-card-inner {
+    left: auto;
+    right: 0;
+}
+
+/* ---------- card content ---------- */
+
+.member-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.member-card.expanded .member-card-header {
+    align-items: flex-start;
+    width: 150px;
+    flex-shrink: 0;
+}
+
+.member-avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    object-fit: cover;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.member-card.expanded .member-avatar {
+    width: 56px;
+    height: 56px;
+}
+
+.member-avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--muted);
+}
+
+.member-card.expanded .member-avatar-fallback {
+    font-size: 16px;
+}
+
+.member-name {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--ink);
+    margin: 0;
+}
+
+.member-role {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 999px;
+}
+
+.role-leadership {
+    color: #8b2b2b;
+    background: rgba(139, 43, 43, 0.09);
+}
+
+.role-secretary {
+    color: #1d3f6e;
+    background: rgba(29, 63, 110, 0.09);
+}
+
+.role-treasury {
+    color: #245c3b;
+    background: rgba(36, 92, 59, 0.09);
+}
+
+.role-outreach {
+    color: #5b3468;
+    background: rgba(91, 52, 104, 0.09);
+}
+
+.role-editorial {
+    color: #1f6b66;
+    background: rgba(31, 107, 102, 0.09);
+}
+
+.role-instructor {
+    color: #38406b;
+    background: rgba(56, 64, 107, 0.09);
+}
+
+.role-member {
+    color: var(--muted);
+    background: var(--panel);
+}
+
+.member-meta {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0;
+}
+
+.member-bio {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    display: none;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.member-card.expanded .member-bio {
+    display: block;
+}
+
+.member-hint {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    opacity: 0.65;
+}
+
+.member-card.expanded .member-hint {
+    display: none;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 960px) {
+    .members-hero h1 {
+        font-size: 34px;
+    }
+
+    .members-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .members-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .members-grid {
+        grid-template-columns: 1fr;
+        row-gap: 16px;
+    }
+
+    /* No second column to expand into on a single-column grid, so the
+       expanded card grows downward instead of widening to 2:1. */
+    .member-card.expanded .member-card-inner {
+        width: 100%;
+        aspect-ratio: auto;
+        min-height: calc(100% + 130px);
+        flex-direction: column;
+    }
+
+    .member-card.expanded .member-card-header {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .member-card.expanded .member-bio {
+        margin-top: 14px;
+        height: auto;
+        max-height: 160px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .member-card-inner,
+    .member-avatar,
+    .members-status .spin {
+        transition: none;
+        animation: none;
+    }
+}

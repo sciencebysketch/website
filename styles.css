@@ -18,6 +18,10 @@ body {
     background: var(--bg);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -77,6 +81,47 @@ a {
 .site-nav {
     display: flex;
     gap: 26px;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-toggle:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
 }
 
 .site-nav a {
@@ -228,6 +273,11 @@ h1 {
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, opacity 0.15s ease;
 }
 
+.scroll-cta {
+    display: inline-block;
+    text-decoration: none;
+}
+
 .subscribe-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 14px rgba(10, 10, 10, 0.06);
@@ -275,6 +325,7 @@ h1 {
 
 .mission,
 .drawn-conclusions,
+.stats,
 .volunteer {
     width: 100%;
     max-width: 1120px;
@@ -301,23 +352,27 @@ h1 {
     margin: 0;
 }
 
-/* ---------- image placeholders ---------- */
+/* ---------- real artwork frame (no gray fill — a card-style border,
+   same treatment as the member cards) ---------- */
 
-.mission-image,
-.dc-image {
+.mission-image {
     aspect-ratio: 1 / 1;
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     border-radius: 20px;
-    background: var(--panel);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--muted);
 }
 
-.placeholder-icon {
-    font-size: 64px;
-    color: var(--muted);
+.mission-image img {
+    max-width: 60%;
+    max-height: 60%;
+    object-fit: contain;
 }
 
 /* ---------- mission ---------- */
@@ -333,23 +388,166 @@ h1 {
     max-width: 400px;
 }
 
-/* ---------- drawn conclusions ---------- */
-
-.dc-top {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
+#drawn-conclusions {
+    scroll-margin-top: 90px;
 }
 
-.dc-header {
-    max-width: 400px;
-    margin-left: auto;
-    text-align: right;
+/* ---------- drawn conclusions ---------- */
+
+.dc-hero {
+    width: 100%;
+    background: var(--ink);
+    border-radius: 28px;
+    padding: 64px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.dc-hero h2 {
+    color: #ffffff;
+}
+
+.dc-hero p {
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 560px;
+    margin: 0 0 32px;
+}
+
+/* ---------- newsletter signup (standout inline form) ---------- */
+
+.newsletter-form {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 5px;
+    gap: 4px;
+    transition: box-shadow 0.2s ease;
+}
+
+.newsletter-form:focus-within {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
+}
+
+.newsletter-form-icon {
+    flex-shrink: 0;
+    font-size: 17px;
+    color: #b0b0b0;
+    padding-left: 14px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: 11px 8px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+}
+
+.newsletter-form input::placeholder {
+    color: #9a9a9a;
+}
+
+.newsletter-form button {
+    flex-shrink: 0;
+    border: none;
+    border-radius: 999px;
+    padding: 11px 22px;
+    background: var(--ink);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.newsletter-form button:hover {
+    opacity: 0.85;
+}
+
+.newsletter-form button:active {
+    transform: scale(0.97);
+}
+
+.newsletter-form button:disabled {
+    opacity: 0.6;
+    cursor: default;
+    transform: none;
+}
+
+.newsletter-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 12.5px;
+    margin-top: 14px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    min-height: 15px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.newsletter-status.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.newsletter-status i {
+    font-size: 15px;
+    line-height: 1;
+}
+
+.newsletter-status.error {
+    color: #ff9c8a;
+    background: rgba(255, 156, 138, 0.12);
+}
+
+.newsletter-status.success {
+    color: #8fe3a6;
+    background: rgba(143, 227, 166, 0.12);
+}
+
+.newsletter-status.info {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.newsletter-success {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff;
+    margin: 0;
+    padding: 12px 4px;
+}
+
+.newsletter-fineprint {
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 12px 0 0;
 }
 
 .dc-grid {
-    margin-top: 44px;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -392,6 +590,9 @@ h1 {
 .dc-card p {
     font-size: 13px;
     line-height: 1.5;
+    color: var(--muted);
+    max-width: none;
+    margin: 0;
 }
 
 /* ---------- volunteer ---------- */
@@ -693,9 +894,16 @@ h1 {
 }
 
 .modal-status {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 6px;
     font-family: var(--font-body);
+    font-weight: 600;
     font-size: 12px;
     margin-top: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
     min-height: 16px;
     opacity: 0;
     transform: translateY(4px);
@@ -707,12 +915,24 @@ h1 {
     transform: translateY(0);
 }
 
+.modal-status i {
+    font-size: 14px;
+    line-height: 1;
+}
+
 .modal-status.success {
     color: #1a7f37;
+    background: rgba(26, 127, 55, 0.1);
 }
 
 .modal-status.error {
     color: #c0362c;
+    background: rgba(192, 54, 44, 0.1);
+}
+
+.modal-status.info {
+    color: var(--muted);
+    background: rgba(0, 0, 0, 0.04);
 }
 
 /* ---------- under-development pages ---------- */
@@ -766,25 +986,21 @@ h1 {
         font-size: 38px;
     }
 
-    .mission,
-    .dc-top {
+    .mission {
         grid-template-columns: 1fr;
     }
 
-    .mission-image,
-    .dc-image {
-        max-width: 320px;
+    .mission-image {
+        max-width: 400px;
         margin: 0 auto;
+    }
+
+    .dc-hero {
+        padding: 48px 28px;
     }
 
     .dc-grid {
         grid-template-columns: 1fr;
-    }
-
-    .dc-header {
-        text-align: left;
-        margin-left: 0;
-        max-width: none;
     }
 
     .volunteer {
@@ -794,15 +1010,94 @@ h1 {
     .footer-top {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+@media (max-width: 700px) {
+    .site-header-inner {
+        position: relative;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
 
     .site-nav {
-        gap: 16px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--line);
+        border-radius: 0 0 14px 14px;
+        padding: 4px 24px 8px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .site-nav.open {
+        max-height: 320px;
+    }
+
+    .site-nav a {
+        width: 100%;
+        padding: 13px 0;
+    }
+
+    .site-nav a::after {
+        display: none;
     }
 }
 
 @media (max-width: 520px) {
     .footer-top {
         grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 24px 20px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 15.5px;
+    }
+
+    .subscribe-btn {
+        width: 100%;
+        padding: 15px 28px;
+    }
+
+    .dc-hero {
+        padding: 40px 22px;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+        gap: 10px;
+    }
+
+    .newsletter-form-icon {
+        display: none;
+    }
+
+    .newsletter-form input {
+        background: #ffffff;
+        border-radius: 999px;
+        padding: 12px 16px;
+    }
+
+    .newsletter-form button {
+        width: 100%;
+        padding: 13px 22px;
     }
 }
 
@@ -832,9 +1127,13 @@ h1 {
     .modal input[type="email"],
     .site-nav a,
     .site-nav a::after,
+    .site-nav,
+    .nav-toggle span,
     .footer-col a,
     .site-header,
     .dc-card,
+    .newsletter-form button,
+    .newsletter-status,
     .volunteer-form-placeholder,
     .reveal {
         transition: none;

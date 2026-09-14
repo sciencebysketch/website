@@ -14,10 +14,18 @@
     <header class="site-header" id="siteHeader">
         <div class="site-header-inner">
             <a href="index.html" class="site-logo">Science by Sketch</a>
-            <nav class="site-nav">
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false"
+                aria-controls="siteNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="site-nav" id="siteNav">
+                <a href="about.html">About</a>
                 <a href="articles.html">Articles</a>
                 <a href="blog.html">Blog</a>
                 <a href="newsletter.html">Newsletter</a>
+                <a href="members.html">Members</a>
             </nav>
         </div>
     </header>
@@ -25,7 +33,7 @@
     <section class="hero">
         <div class="content">
             <div class="scribble-wrap">
-                <img src="https://cdn.jsdelivr.net/gh/Science-by-Sketch/assets@main/scribbles_desk.svg"
+                <img src="https://cdn.jsdelivr.net/gh/Science-by-Sketch/assets@main/scribblez_desk.svg"
                     alt="Science by Sketch mascot" id="mascot">
             </div>
 
@@ -44,23 +52,29 @@
                 students to explore STEM from an early age.</p>
         </div>
         <div class="mission-image reveal">
-            <i class="hgi-stroke hgi-image-not-found-02 placeholder-icon" aria-hidden="true"></i>
+            <img src="https://cdn.jsdelivr.net/gh/Science-by-Sketch/assets@main/scribblez_art.svg"
+                alt="Illustration of Scribblez sketching a science concept">
         </div>
     </section>
 
     <section class="drawn-conclusions">
-        <div class="dc-top">
-            <div class="dc-image reveal">
-                <i class="hgi-stroke hgi-image-not-found-02 placeholder-icon" aria-hidden="true"></i>
-            </div>
-            <div class="dc-header reveal">
-                <h2>Drawn Conclusions</h2>
-                <p>Our newsletter, Drawn Conclusions, brings Science by Sketch comics, articles, and ideas straight to
-                    your inbox. Everything is student-made, science-focused, and simple. There's no clutter, no
-                    AI-generated slop, just things worth reading.</p>
-            </div>
-        </div>
+        <div class="dc-hero reveal">
+            <h2>Drawn Conclusions</h2>
+            <p>Our newsletter, Drawn Conclusions, brings Science by Sketch comics, articles, and ideas straight to
+                your inbox. Everything is student-made, science-focused, and simple. There's no clutter, no
+                AI-generated slop, just things worth reading.</p>
 
+            <form class="newsletter-form" id="newsletterForm" novalidate>
+                <i class="hgi-stroke hgi-mail-01 newsletter-form-icon" aria-hidden="true"></i>
+                <input type="email" id="newsletterEmail" placeholder="you@example.com" autocomplete="email" required>
+                <button type="submit" id="newsletterSubmit">Subscribe</button>
+            </form>
+            <div class="newsletter-status" id="newsletterStatus"></div>
+            <p class="newsletter-fineprint">One email per issue. Unsubscribe anytime.</p>
+        </div>
+    </section>
+
+    <section class="stats">
         <div class="dc-grid">
             <div class="dc-card reveal">
                 <i class="hgi-stroke hgi-news dc-icon" aria-hidden="true"></i>
@@ -83,10 +97,12 @@
     <section class="volunteer">
         <div class="volunteer-text reveal">
             <h2>Partner With Us</h2>
-            <p>Our 17 student teachers are excited to share their love of science with your students. We currently volunteer at
-            libraries and tutor students, but we believe we can make an even greater impact in the classroom. Interested in having 
-            Science by Sketch visit your school for a fun, engaging science lesson? Reach out to us, and we'll
-            get back to you within 48 hours.</p>
+            <p>Our 17 student teachers are excited to share their love of science with your students. We currently
+                volunteer at
+                libraries and tutor students, but we believe we can make an even greater impact in the classroom.
+                Interested in having
+                Science by Sketch visit your school for a fun, engaging science lesson? Reach out to us, and we'll
+                get back to you within 48 hours.</p>
         </div>
         <div class="volunteer-form-placeholder reveal">Form Coming Soon</div>
     </section>
@@ -100,8 +116,8 @@
 
             <div class="footer-col">
                 <h3>Explore</h3>
-                <a href="#">About</a>
-                <a href="#">Members</a>
+                <a href="about.html">About</a>
+                <a href="members.html">Members</a>
                 <a href="articles.html">Articles</a>
                 <a href="blog.html">Blog</a>
                 <a href="newsletter.html">Newsletter</a>

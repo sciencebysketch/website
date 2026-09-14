@@ -1,0 +1,145 @@
+/* ---------- about hero ---------- */
+
+.about-hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 168px 24px 20px;
+    box-sizing: border-box;
+}
+
+.about-hero .content {
+    max-width: 640px;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.1;
+    color: var(--ink);
+    margin: 0 0 14px;
+}
+
+.about-hero .subtitle {
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0;
+}
+
+/* ---------- prose body ---------- */
+
+.about-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 24px 20px;
+    box-sizing: border-box;
+}
+
+.about-text {
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.about-text p {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin: 0;
+}
+
+.about-text em {
+    color: var(--ink);
+    font-style: italic;
+}
+
+/* ---------- meet scribblez ---------- */
+
+.about-scribblez {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+}
+
+.scribblez-text h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 30px;
+    color: var(--ink);
+    margin: 0 0 12px;
+}
+
+.scribblez-text p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+}
+
+.scribblez-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.scribblez-image {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: 20px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.scribblez-image img {
+    max-width: 60%;
+    max-height: 60%;
+    object-fit: contain;
+    transform: rotate(-12deg);
+}
+
+.scribblez-caption {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    color: var(--muted);
+    text-align: center;
+    margin: 0;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 860px) {
+    .about-hero h1 {
+        font-size: 34px;
+    }
+
+    .about-hero .subtitle {
+        font-size: 16px;
+    }
+
+    .about-scribblez {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+}
