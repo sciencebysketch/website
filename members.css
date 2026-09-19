@@ -35,6 +35,7 @@
 .members-section {
     width: 100%;
     max-width: 1120px;
+    min-height: 50vh;
     padding: 20px 24px 100px;
     box-sizing: border-box;
 }

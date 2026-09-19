@@ -4,16 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Newsletter</title>
+    <title>Draw Conclusions — Science by Sketch</title>
+    <meta name="description" content="Draw Conclusions — Science by Sketch newsletter. Hand-drawn science comics, student-written explainers, and visual ideas delivered straight to your inbox.">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="newsletter.css">
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
 </head>
 
-<body class="dev-body">
-    <div class="dev-content">
-        <img src="https://cdn.jsdelivr.net/gh/Science-by-Sketch/assets@main/scribblez.svg"
-            alt="Science by Sketch mascot" class="dev-mascot">
-        <p class="dev-message">NEWSLETTER IS CURRENTLY UNDER DEVELOPMENT</p>
-    </div>
+<body class="newsletter-body">
+
+    <!-- Reusable Header Component -->
+    <site-header current="newsletter">
+        <header class="site-header visible" id="siteHeader">
+            <div class="site-header-inner">
+                <a href="index.html" class="site-logo" aria-label="Science by Sketch Home">Science by Sketch</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="site-nav" id="siteNav" aria-label="Main Navigation">
+                    <a href="about.html">About</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="newsletter.html" aria-current="page" class="active">Newsletter</a>
+                    <a href="members.html">Members</a>
+                </nav>
+            </div>
+        </header>
+    </site-header>
+
+    <main class="newsletter-main">
+        <header class="newsletter-header">
+            <h1>Draw Conclusions</h1>
+            <p>Science by Sketch brings hand-drawn science comics, student-written explainers, and visual ideas straight to your inbox. Everything is student-made, science-focused, and simple — no clutter, no AI-generated slop, just things worth reading.</p>
+
+            <div class="newsletter-subscribe-wrap">
+                <newsletter-subscribe button-text="Subscribe" helper-text="One email per issue. Unsubscribe anytime.">
+                    <form class="newsletter-form" id="newsletterForm" novalidate>
+                        <i class="hgi-stroke hgi-mail-01 newsletter-form-icon" aria-hidden="true"></i>
+                        <input type="email" class="newsletter-email-input" placeholder="you@example.com" autocomplete="email" required aria-label="Email address">
+                        <button type="submit" class="newsletter-submit-btn">Subscribe</button>
+                    </form>
+                    <div class="newsletter-status" role="status" aria-live="polite"></div>
+                    <p class="newsletter-fineprint">One email per issue. Unsubscribe anytime.</p>
+                </newsletter-subscribe>
+            </div>
+        </header>
+    </main>
+
+    <!-- Reusable Footer Component -->
+    <site-footer>
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Science by Sketch</div>
+                    <p>Where science meets storytelling</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Explore</h3>
+                    <a href="about.html">About</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="newsletter.html">Newsletter</a>
+                    <a href="members.html">Members</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Get Involved</h3>
+                    <a href="index.html#volunteer">For Schools</a>
+                    <a href="index.html#volunteer">Volunteer</a>
+                    <a href="mailto:sciencebysketch@gmail.com">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Science by Sketch</p>
+                <p>Have a question for us? Email us at <a href="mailto:sciencebysketch@gmail.com">sciencebysketch@gmail.com</a></p>
+            </div>
+        </footer>
+    </site-footer>
+
+    <script src="components/components.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,129 @@
+/* ============================================================
+   Science by Sketch — Newsletter Page (Draw Conclusions)
+   Minimalist, centered, black & white, no images.
+   ============================================================ */
+
+.newsletter-body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #ffffff;
+    color: #0a0a0a;
+}
+
+.newsletter-main {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 160px 24px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+/* ---------- Header & Intro ---------- */
+
+.newsletter-header {
+    width: 100%;
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.newsletter-header h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 52px;
+    line-height: 1.15;
+    color: #0a0a0a;
+    margin: 0 0 20px;
+    letter-spacing: -0.025em;
+}
+
+.newsletter-header p {
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.65;
+    color: #525252;
+    margin: 0 0 40px;
+}
+
+/* ---------- Subscribe Container (Lighter Border) ---------- */
+
+.newsletter-subscribe-wrap {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter-subscribe-wrap .newsletter-form {
+    width: 100%;
+    max-width: 480px;
+    background: #ffffff;
+    border: 1px solid #d4d4d4; /* clean, light border */
+    border-radius: 999px;
+    padding: 6px;
+    gap: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.newsletter-subscribe-wrap .newsletter-form:focus-within {
+    border-color: #525252;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.newsletter-subscribe-wrap .newsletter-form-icon {
+    color: #737373;
+}
+
+.newsletter-subscribe-wrap .newsletter-form button {
+    background: #0a0a0a;
+    color: #ffffff;
+    border: 1px solid #0a0a0a;
+    padding: 12px 26px;
+    border-radius: 999px;
+}
+
+.newsletter-subscribe-wrap .newsletter-form button:hover {
+    background: #262626;
+}
+
+.newsletter-subscribe-wrap .newsletter-fineprint {
+    color: #737373;
+    margin-top: 14px;
+    font-size: 12.5px;
+}
+
+.newsletter-subscribe-wrap .newsletter-status {
+    background: #f5f5f5;
+    color: #0a0a0a;
+    border: 1px solid #e5e5e5;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+    .newsletter-header h1 {
+        font-size: 38px;
+    }
+
+    .newsletter-header p {
+        font-size: 16px;
+    }
+
+    .newsletter-main {
+        padding: 120px 20px 80px;
+    }
+}

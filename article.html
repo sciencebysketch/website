@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Article — Science by Sketch</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="articles.css">
+    <link rel="stylesheet" href="article.css">
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+
+<body class="article-body">
+
+    <!-- Reusable Header Component -->
+    <site-header current="articles">
+        <header class="site-header visible" id="siteHeader">
+            <div class="site-header-inner">
+                <a href="index.html" class="site-logo" aria-label="Science by Sketch Home">Science by Sketch</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="site-nav" id="siteNav" aria-label="Main Navigation">
+                    <a href="about.html">About</a>
+                    <a href="articles.html" aria-current="page" class="active">Articles</a>
+                    <a href="newsletter.html">Newsletter</a>
+                    <a href="members.html">Members</a>
+                </nav>
+            </div>
+        </header>
+    </site-header>
+
+    <main class="article-main">
+
+        <a class="article-back" href="articles.html">
+            <i class="hgi-stroke hgi-arrow-left-01" aria-hidden="true"></i>
+            All articles
+        </a>
+
+        <!-- loading skeleton, shown while the markdown is fetched -->
+        <div class="article-skeleton" id="articleSkeleton">
+            <div class="sk-line sk-chip"></div>
+            <div class="sk-line sk-title"></div>
+            <div class="sk-line sk-title short"></div>
+            <div class="sk-line sk-meta"></div>
+            <div class="sk-block sk-cover"></div>
+            <div class="sk-line"></div>
+            <div class="sk-line"></div>
+            <div class="sk-line short"></div>
+        </div>
+
+        <!-- shown if the slug is missing/unknown -->
+        <div class="article-missing" id="articleMissing" hidden>
+            <i class="hgi-stroke hgi-search-remove" aria-hidden="true"></i>
+            <h1>We couldn't find that article</h1>
+            <p>It may have been renamed or removed. Head back to the articles page to keep browsing.</p>
+            <a class="articles-search-link" href="articles.html">Back to articles</a>
+        </div>
+
+        <!-- shown if the markdown fetch fails -->
+        <div class="article-error" id="articleError" hidden>
+            <i class="hgi-stroke hgi-cloud-error" aria-hidden="true"></i>
+            <h1>This article couldn't load</h1>
+            <p>Something went wrong fetching the content from our articles repo. Please try again in a moment.</p>
+            <div class="article-error-actions">
+                <button type="button" id="retryLoad">Try again</button>
+                <a id="errorSourceLink" href="#" target="_blank" rel="noopener">View source on GitHub</a>
+            </div>
+        </div>
+
+        <article class="article-view" id="articleView" hidden>
+            <header class="article-header">
+                <div class="article-badges">
+                    <span class="article-category" id="articleCategory"></span>
+                    <span class="article-type" id="articleType"></span>
+                </div>
+                <h1 class="article-title" id="articleTitle"></h1>
+                <p class="article-description" id="articleDescription"></p>
+
+                <div class="article-meta">
+                    <span class="article-author">
+                        <span class="article-author-avatar" id="articleAuthorAvatar"></span>
+                        <span class="article-author-name" id="articleAuthorName"></span>
+                    </span>
+                    <span class="meta-dot" aria-hidden="true">&middot;</span>
+                    <span class="article-date" id="articleDate"></span>
+                    <span class="meta-dot" aria-hidden="true">&middot;</span>
+                    <span class="article-read-time" id="articleReadTime"></span>
+                </div>
+
+                <div class="article-tags" id="articleTags"></div>
+            </header>
+
+            <div class="article-content" id="articleContent"></div>
+
+            <footer class="article-footer">
+                <a class="articles-search-link" href="articles.html">
+                    <i class="hgi-stroke hgi-arrow-left-01" aria-hidden="true"></i>
+                    Back to all articles
+                </a>
+                <a class="article-source-link" id="articleSourceLink" href="#" target="_blank" rel="noopener">
+                    View source on GitHub
+                </a>
+            </footer>
+        </article>
+
+    </main>
+
+    <!-- Reusable Footer Component -->
+    <site-footer>
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Science by Sketch</div>
+                    <p>Where science meets storytelling</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Explore</h3>
+                    <a href="about.html">About</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="newsletter.html">Newsletter</a>
+                    <a href="members.html">Members</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Get Involved</h3>
+                    <a href="index.html#volunteer">For Schools</a>
+                    <a href="index.html#volunteer">Volunteer</a>
+                    <a href="mailto:sciencebysketch@gmail.com">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Science by Sketch</p>
+                <p>Have a question for us? Email us at <a href="mailto:sciencebysketch@gmail.com">sciencebysketch@gmail.com</a></p>
+            </div>
+        </footer>
+    </site-footer>
+
+    <script src="components/components.js"></script>
+    <script src="script.js"></script>
+    <script src="articles-data.js"></script>
+    <script src="article.js"></script>
+</body>
+
+</html>

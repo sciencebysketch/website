@@ -27,15 +27,11 @@ async function subscribeEmail(email) {
     return res.json();
 }
 
-/* ---------- header show/hide on scroll ---------- */
+/* ---------- header always visible ---------- */
 
 const header = document.getElementById('siteHeader');
 if (header) {
-    const updateHeader = () => {
-        header.classList.toggle('visible', window.scrollY > 80);
-    };
-    updateHeader();
-    window.addEventListener('scroll', updateHeader, { passive: true });
+    header.classList.add('visible');
 }
 
 /* ---------- mobile nav toggle ---------- */
@@ -43,7 +39,8 @@ if (header) {
 const navToggle = document.getElementById('navToggle');
 const siteNav = document.getElementById('siteNav');
 
-if (navToggle && siteNav) {
+if (navToggle && siteNav && !navToggle.dataset.hasListener) {
+    navToggle.dataset.hasListener = 'true';
     navToggle.addEventListener('click', () => {
         const isOpen = siteNav.classList.toggle('open');
         navToggle.setAttribute('aria-expanded', String(isOpen));

@@ -4,16 +4,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Articles</title>
+    <title>Articles — Science by Sketch</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="articles.css">
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
 </head>
 
-<body class="dev-body">
-    <div class="dev-content">
-        <img src="https://cdn.jsdelivr.net/gh/Science-by-Sketch/assets@main/scribblez.svg"
-            alt="Science by Sketch mascot" class="dev-mascot">
-        <p class="dev-message">ARTICLES IS CURRENTLY UNDER DEVELOPMENT</p>
-    </div>
+<body class="articles-body">
+
+    <!-- Reusable Header Component -->
+    <site-header current="articles">
+        <header class="site-header visible" id="siteHeader">
+            <div class="site-header-inner">
+                <a href="index.html" class="site-logo" aria-label="Science by Sketch Home">Science by Sketch</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="site-nav" id="siteNav" aria-label="Main Navigation">
+                    <a href="about.html">About</a>
+                    <a href="articles.html" aria-current="page" class="active">Articles</a>
+                    <a href="newsletter.html">Newsletter</a>
+                    <a href="members.html">Members</a>
+                </nav>
+            </div>
+        </header>
+    </site-header>
+
+    <section class="articles-hero">
+        <div class="articles-hero-inner">
+            <h1>Articles</h1>
+            <p class="subtitle">Student-written explainers on the science we find worth sketching, from cells to
+                circuits.</p>
+
+            <div class="articles-search">
+                <i class="hgi-stroke hgi-search-01" aria-hidden="true"></i>
+                <input type="search" id="articleSearch" placeholder="Search articles, topics, or authors…"
+                    autocomplete="off">
+                <button type="button" id="clearSearch" class="clear-search" hidden aria-label="Clear search">
+                    <i class="hgi-stroke hgi-cancel-01" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="articles-filters" id="categoryFilters"></div>
+        </div>
+    </section>
+
+    <section class="articles-section">
+        <p class="results-count" id="resultsCount"></p>
+        <div class="articles-grid" id="articlesGrid"></div>
+        <div class="empty-state" id="emptyState" hidden>
+            <i class="hgi-stroke hgi-search-remove" aria-hidden="true"></i>
+            <p>No articles match your search.</p>
+            <button type="button" id="resetSearch">Clear search</button>
+        </div>
+    </section>
+
+    <!-- Reusable Footer Component -->
+    <site-footer>
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Science by Sketch</div>
+                    <p>Where science meets storytelling</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Explore</h3>
+                    <a href="about.html">About</a>
+                    <a href="articles.html">Articles</a>
+                    <a href="newsletter.html">Newsletter</a>
+                    <a href="members.html">Members</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Get Involved</h3>
+                    <a href="index.html#volunteer">For Schools</a>
+                    <a href="index.html#volunteer">Volunteer</a>
+                    <a href="mailto:sciencebysketch@gmail.com">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Science by Sketch</p>
+                <p>Have a question for us? Email us at <a href="mailto:sciencebysketch@gmail.com">sciencebysketch@gmail.com</a></p>
+            </div>
+        </footer>
+    </site-footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="components/components.js"></script>
+    <script src="script.js"></script>
+    <script src="articles-data.js"></script>
+    <script src="articles.js"></script>
 </body>
 
 </html>

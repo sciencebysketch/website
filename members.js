@@ -39,9 +39,12 @@ function initials(name) {
 function buildAvatar(member) {
     const slug = (member.name || '').trim().toLowerCase().replace(/\s+/g, '_');
     const img = document.createElement('img');
-    img.className = 'member-avatar';
+    img.className = 'member-avatar smooth-image';
     img.alt = '';
     img.loading = 'lazy';
+    img.decoding = 'async';
+
+    img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
 
     let attempt = 0;
     const tryNext = () => {

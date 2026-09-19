@@ -18,6 +18,13 @@ body {
     background: var(--bg);
 }
 
+/* The [hidden] attribute must always win, even over components that
+   set their own `display` (e.g. `display: flex`) — otherwise a card
+   with `display: flex` in its class stays visible while "hidden". */
+[hidden] {
+    display: none !important;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -38,6 +45,25 @@ a {
     text-decoration: none;
 }
 
+/* ---------- reusable components ---------- */
+
+site-header {
+    display: block;
+}
+
+site-footer {
+    display: block;
+    width: 100%;
+}
+
+newsletter-subscribe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
 /* ---------- header ---------- */
 
 .site-header {
@@ -50,17 +76,11 @@ a {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid var(--line);
     display: flex;
     justify-content: center;
-    transform: translateY(-100%);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
-    z-index: 30;
-}
-
-.site-header.visible {
     transform: translateY(0);
-    border-bottom-color: var(--line);
+    z-index: 30;
 }
 
 .site-header-inner {
@@ -149,6 +169,16 @@ a {
 }
 
 .site-nav a:hover::after {
+    right: 0;
+}
+
+.site-nav a[aria-current="page"],
+.site-nav a.active {
+    color: var(--ink);
+}
+
+.site-nav a[aria-current="page"]::after,
+.site-nav a.active::after {
     right: 0;
 }
 
@@ -403,17 +433,29 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     box-sizing: border-box;
 }
 
 .dc-hero h2 {
     color: #ffffff;
+    text-align: center;
 }
 
 .dc-hero p {
     color: rgba(255, 255, 255, 0.7);
     max-width: 560px;
-    margin: 0 0 32px;
+    margin: 0 auto 32px;
+    text-align: center;
+}
+
+.dc-hero newsletter-subscribe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
 }
 
 /* ---------- newsletter signup (standout inline form) ---------- */
@@ -421,6 +463,7 @@ h1 {
 .newsletter-form {
     width: 100%;
     max-width: 420px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     background: #ffffff;
@@ -543,7 +586,8 @@ h1 {
     font-family: var(--font-body);
     font-size: 11.5px;
     color: rgba(255, 255, 255, 0.55);
-    margin: 12px 0 0;
+    margin: 12px auto 0;
+    text-align: center;
 }
 
 .dc-grid {
@@ -565,6 +609,7 @@ h1 {
     text-align: center;
     padding: 28px;
     color: var(--ink);
+    font-family: "Inter";
 }
 
 .dc-card:hover {
@@ -1149,4 +1194,31 @@ h1 {
         animation: none;
         stroke-dashoffset: 0;
     }
+}
+
+/* ---------- Smooth Image Loading & Shimmer ---------- */
+
+@keyframes sbsImgShimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.img-shimmer-bg {
+    background: linear-gradient(90deg, #f0ede7 25%, #f8f6f2 50%, #f0ede7 75%);
+    background-size: 200% 100%;
+    animation: sbsImgShimmer 1.8s infinite ease-in-out;
+}
+
+.smooth-image {
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+}
+
+.smooth-image.is-loaded {
+    opacity: 1;
 }
