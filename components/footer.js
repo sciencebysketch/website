@@ -36,7 +36,7 @@ class SiteFooter extends HTMLElement {
                         <h3>Connect</h3>
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
                         <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a>
-                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+                        <a href="https://www.youtube.com/@SciencebySketch" target="_blank" rel="noopener noreferrer">YouTube</a>
                     </div>
                 </div>
 
