@@ -35,7 +35,6 @@ class SiteFooter extends HTMLElement {
                     <div class="footer-col">
                         <h3>Connect</h3>
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
-                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a>
                         <a href="https://www.youtube.com/@SciencebySketch" target="_blank" rel="noopener noreferrer">YouTube</a>
                     </div>
                 </div>
