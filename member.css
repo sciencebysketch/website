@@ -1,0 +1,341 @@
+/* ============================================================
+   Science by Sketch — Member profile page
+   Built on top of the shared tokens/components in styles.css
+   ============================================================ */
+
+.member-body {
+    align-items: stretch;
+}
+
+/* ---------- back link ---------- */
+
+.member-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    transition: color 0.15s ease;
+}
+
+.member-back:hover {
+    color: var(--ink);
+}
+
+.member-back i {
+    font-size: 16px;
+}
+
+/* ---------- main layout ---------- */
+
+.member-main {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 140px 24px 96px;
+    box-sizing: border-box;
+}
+
+/* ---------- loading / not-found states ---------- */
+
+.member-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 100px 0;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.member-loading .spin {
+    font-size: 18px;
+    animation: memberSpin 0.9s linear infinite;
+}
+
+@keyframes memberSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.member-not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 80px 24px;
+    gap: 12px;
+}
+
+.member-not-found i {
+    font-size: 40px;
+    color: #c7c7c5;
+}
+
+.member-not-found h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--ink);
+    margin: 0;
+    animation: none;
+    opacity: 1;
+}
+
+.member-not-found p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+}
+
+.member-back-link {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: #ffffff;
+    background: var(--ink);
+    border-radius: 999px;
+    padding: 12px 24px;
+    margin-top: 8px;
+    transition: opacity 0.15s ease;
+}
+
+.member-back-link:hover {
+    opacity: 0.85;
+}
+
+/* ---------- profile hero ---------- */
+
+.member-profile-hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 56px;
+}
+
+.member-profile-avatar {
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.member-profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.member-profile-avatar .avatar-initials {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--muted);
+}
+
+.member-profile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.member-profile-name {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin: 0 0 10px;
+    animation: none;
+    opacity: 1;
+}
+
+.member-profile-role {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+}
+
+.member-profile-meta {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 16px;
+}
+
+.member-profile-description {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0;
+    max-width: 560px;
+}
+
+.member-profile-description:empty {
+    display: none;
+}
+
+/* ---------- articles section ---------- */
+
+.member-articles-section {
+    padding-top: 8px;
+}
+
+.member-articles-heading {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--ink);
+    margin: 0 0 24px;
+    animation: none;
+    opacity: 1;
+}
+
+.member-articles-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 48px 0;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.member-articles-loading .spin {
+    font-size: 18px;
+    animation: memberSpin 0.9s linear infinite;
+}
+
+.member-articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.member-articles-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 56px 24px;
+    gap: 12px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--panel);
+}
+
+.member-articles-empty i {
+    font-size: 32px;
+    color: #c7c7c5;
+}
+
+.member-articles-empty p {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--muted);
+    margin: 0;
+}
+
+/* ---------- role badge colors (same map as members.css) ---------- */
+
+.role-leadership {
+    color: #8b2b2b;
+    background: rgba(139, 43, 43, 0.09);
+}
+
+.role-secretary {
+    color: #1d3f6e;
+    background: rgba(29, 63, 110, 0.09);
+}
+
+.role-treasury {
+    color: #245c3b;
+    background: rgba(36, 92, 59, 0.09);
+}
+
+.role-outreach {
+    color: #5b3468;
+    background: rgba(91, 52, 104, 0.09);
+}
+
+.role-editorial {
+    color: #1f6b66;
+    background: rgba(31, 107, 102, 0.09);
+}
+
+.role-instructor {
+    color: #38406b;
+    background: rgba(56, 64, 107, 0.09);
+}
+
+.role-member {
+    color: var(--muted);
+    background: var(--panel);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 700px) {
+    .member-profile-hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .member-profile-name {
+        font-size: 28px;
+    }
+
+    .member-profile-description {
+        max-width: none;
+    }
+
+    .member-articles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .member-main {
+        padding-top: 120px;
+    }
+
+    .member-profile-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 20px;
+    }
+
+    .member-profile-avatar .avatar-initials {
+        font-size: 26px;
+    }
+}
+
+/* ---------- accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .member-loading .spin,
+    .member-articles-loading .spin {
+        animation: none;
+    }
+}

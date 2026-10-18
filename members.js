@@ -64,110 +64,14 @@ function buildAvatar(member) {
     return img;
 }
 
-function isSingleColumnLayout() {
-    return window.matchMedia('(max-width: 480px)').matches;
-}
-
-function collapseCard(card) {
-    const inner = card.querySelector('.member-card-inner');
-    if (!card.classList.contains('expanded')) return;
-
-    if (isSingleColumnLayout()) {
-        // Mobile grows downward via a plain CSS rule (see stylesheet) —
-        // no inline pixel sizing needed, just toggle the class.
-        card.classList.remove('expanded', 'expand-left');
-        card.setAttribute('aria-expanded', 'false');
-        return;
-    }
-
-    // Animate back down to the resting square size, then once the
-    // transition finishes, drop the inline styles so the card returns
-    // to filling its grid cell normally (and stays responsive to resize).
-    const squareSize = card.getBoundingClientRect().width;
-    inner.style.width = squareSize + 'px';
-    inner.style.height = squareSize + 'px';
-
-    const onDone = (e) => {
-        if (e.target !== inner || (e.propertyName !== 'width' && e.propertyName !== 'height')) return;
-        inner.removeEventListener('transitionend', onDone);
-        card.classList.remove('expanded', 'expand-left');
-        inner.style.width = '';
-        inner.style.height = '';
-        inner.style.left = '';
-        inner.style.right = '';
-    };
-    inner.addEventListener('transitionend', onDone);
-
-    card.setAttribute('aria-expanded', 'false');
-}
-
-function expandCard(card) {
-    const inner = card.querySelector('.member-card-inner');
-    const startRect = inner.getBoundingClientRect();
-
-    card.setAttribute('aria-expanded', 'true');
-
-    if (isSingleColumnLayout()) {
-        // Mobile grows downward via a plain CSS rule — just toggle the class.
-        card.classList.add('expanded');
-        return;
-    }
-
-    // Figure out whether there's room to grow to the right (spanning into
-    // the next column) or whether we need to grow to the left instead,
-    // e.g. when this card is in the last column of the grid.
-    const gapStr = getComputedStyle(gridEl).columnGap || getComputedStyle(gridEl).gap || '18px';
-    const gap = parseFloat(gapStr) || 18;
-    const gridRect = gridEl.getBoundingClientRect();
-    const spaceRight = gridRect.right - startRect.right;
-    const targetWidth = startRect.width * 2 + gap;
-    const targetHeight = targetWidth / 2;
-    const growLeft = spaceRight < targetWidth - startRect.width - 1;
-
-    // Lock the current on-screen size as concrete pixels (instead of the
-    // resting state's implicit inset:0 sizing) so the transition has a
-    // real numeric starting point to animate from.
-    inner.style.width = startRect.width + 'px';
-    inner.style.height = startRect.height + 'px';
-    inner.style.left = growLeft ? 'auto' : '0';
-    inner.style.right = growLeft ? '0' : 'auto';
-
-    card.classList.toggle('expand-left', growLeft);
-    card.classList.add('expanded');
-
-    // Force layout so the browser registers the starting size above
-    // before we change it — otherwise the two writes get batched and
-    // there's nothing to transition from.
-    void inner.offsetWidth;
-
-    requestAnimationFrame(() => {
-        inner.style.width = targetWidth + 'px';
-        inner.style.height = targetHeight + 'px';
-    });
-}
-
-function collapseAll(except) {
-    document.querySelectorAll('.member-card.expanded').forEach((el) => {
-        if (el !== except) collapseCard(el);
-    });
-}
-
-function toggleCard(card) {
-    const isExpanded = card.classList.contains('expanded');
-    collapseAll(card);
-    if (isExpanded) {
-        collapseCard(card);
-    } else {
-        expandCard(card);
-    }
-}
-
 function buildCard(member) {
-    const card = document.createElement('div');
+    const profileUrl = `member.html?name=${encodeURIComponent(member.name)}`;
+
+    const card = document.createElement('a');
     card.className = 'member-card';
+    card.href = profileUrl;
 
     const category = roleCategory(member.role);
-    const bio = (member.bio && member.bio.trim()) ? member.bio.trim() : '';
 
     const metaParts = [];
     if (member.academy) metaParts.push(member.academy);
@@ -188,45 +92,22 @@ function buildCard(member) {
     `);
     inner.appendChild(header);
 
-    card.appendChild(inner);
-
-    // Only members with a real bio are interactive — there's nothing to
-    // reveal for the rest, so they stay static squares.
-    if (!bio) return card;
-
     inner.insertAdjacentHTML('beforeend', `
-        <p class="member-bio">${escapeHTML(bio)}</p>
         <div class="member-hint">
             <i class="hgi-stroke hgi-cursor-02" aria-hidden="true"></i>
-            <span>Click for bio</span>
+            <span>Click to learn more</span>
         </div>
     `);
 
-    card.tabIndex = 0;
-    card.setAttribute('role', 'button');
-    card.setAttribute('aria-expanded', 'false');
-    card.setAttribute('aria-label', `${member.name}, ${member.role}. Activate for full bio.`);
-
-    card.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleCard(card);
-    });
-
-    card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleCard(card);
-        } else if (e.key === 'Escape') {
-            collapseCard(card);
-        }
-    });
+    card.appendChild(inner);
+    card.setAttribute('aria-label', `${member.name}, ${member.role}. Click to view profile.`);
 
     return card;
 }
 
 async function loadMembers() {
     try {
-        const res = await fetch(MEMBERS_URL);
+        const res = await fetch(MEMBERS_URL, { cache: "no-store" });
         if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
         const members = await res.json();
 
@@ -245,12 +126,5 @@ async function loadMembers() {
         statusEl.innerHTML = `<i class="hgi-stroke hgi-alert-02" aria-hidden="true"></i><span>Couldn't load members right now. Please try again later.</span>`;
     }
 }
-
-// Clicking anywhere outside a card, or pressing Escape, collapses whichever
-// card is currently expanded.
-document.addEventListener('click', () => collapseAll());
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') collapseAll();
-});
 
 loadMembers();

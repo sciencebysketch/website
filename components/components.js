@@ -36,7 +36,7 @@ class SiteHeader extends HTMLElement {
                     </button>
                     <nav class="site-nav" id="siteNav" aria-label="Main Navigation">
                         <a href="about.html"${isAbout ? ' aria-current="page" class="active"' : ''}>About</a>
-                        <a href="articles.html"${isArticles ? ' aria-current="page" class="active"' : ''}>Articles</a>
+                        <a href="articles.html"${isArticles ? ' aria-current="page" class="active"' : ''}>Content</a>
                         <a href="newsletter.html"${isNewsletter ? ' aria-current="page" class="active"' : ''}>Newsletter</a>
                         <a href="members.html"${isMembers ? ' aria-current="page" class="active"' : ''}>Members</a>
                     </nav>
@@ -113,7 +113,7 @@ class SiteFooter extends HTMLElement {
                     <div class="footer-col">
                         <h3>Explore</h3>
                         <a href="about.html">About</a>
-                        <a href="articles.html">Articles</a>
+                        <a href="articles.html">Content</a>
                         <a href="newsletter.html">Newsletter</a>
                         <a href="members.html">Members</a>
                     </div>

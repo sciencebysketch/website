@@ -55,9 +55,17 @@ function cardTemplate(article) {
         ? `<span class="card-type" style="${badgeStyle(typeColor)}">${escapeHtml(article.type)}</span>`
         : "";
 
+    const formatBadgeHtml = article.contentType === "slideshow"
+        ? `<span class="card-format-badge"><i class="hgi-stroke hgi-presentation-online" aria-hidden="true"></i> Slideshow</span>`
+        : "";
+
+    const slideCountInfo = (article.contentType === "slideshow" && article.slides && article.slides.length)
+        ? `<span class="card-slide-count">${article.slides.length} slides</span><span class="meta-dot" aria-hidden="true">&middot;</span>`
+        : "";
+
     return `
     <a class="article-card" href="${article.viewUrl}">
-        <div class="card-media">${coverHtml}</div>
+        <div class="card-media">${coverHtml}${formatBadgeHtml}</div>
         <div class="card-body">
             <div class="card-badges">
                 <span class="card-category" style="${badgeStyle(categoryColor)}">${escapeHtml(article.category)}</span>
@@ -71,7 +79,7 @@ function cardTemplate(article) {
                     <span class="card-author-avatar">${escapeHtml(initials(article.author))}</span>
                     <span class="card-author-name">${escapeHtml(article.author)}</span>
                 </span>
-                <span class="card-date">${formatDate(article.published)}</span>
+                <span class="card-date">${slideCountInfo}${formatDate(article.published)}</span>
             </div>
         </div>
     </a>`;
@@ -104,8 +112,8 @@ function renderArticles() {
     if (resultsCount) {
         const count = filtered.length;
         resultsCount.textContent = isFiltering
-            ? `${count} article${count === 1 ? "" : "s"} found`
-            : `${count} article${count === 1 ? "" : "s"}`;
+            ? `${count} item${count === 1 ? "" : "s"} found`
+            : `${count} item${count === 1 ? "" : "s"}`;
     }
 
     if (emptyState) {
@@ -159,7 +167,7 @@ if (resetSearchBtn) {
 /* ---------- init ---------- */
 
 const resultsCountEl = document.getElementById("resultsCount");
-if (resultsCountEl) resultsCountEl.textContent = "Loading articles…";
+if (resultsCountEl) resultsCountEl.textContent = "Loading content…";
 
 articlesReady.then((articles) => {
     allArticles = articles;

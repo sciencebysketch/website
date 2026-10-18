@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Member — Science by Sketch</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="articles.css">
+    <link rel="stylesheet" href="member.css">
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+
+<body class="member-body">
+
+    <!-- Reusable Header Component -->
+    <site-header current="members">
+        <header class="site-header visible" id="siteHeader">
+            <div class="site-header-inner">
+                <a href="index.html" class="site-logo" aria-label="Science by Sketch Home">Science by Sketch</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="site-nav" id="siteNav" aria-label="Main Navigation">
+                    <a href="about.html">About</a>
+                    <a href="articles.html">Content</a>
+                    <a href="newsletter.html">Newsletter</a>
+                    <a href="members.html" aria-current="page" class="active">Members</a>
+                </nav>
+            </div>
+        </header>
+    </site-header>
+
+    <main class="member-main">
+
+        <a class="member-back" href="members.html">
+            <i class="hgi-stroke hgi-arrow-left-01" aria-hidden="true"></i>
+            All members
+        </a>
+
+        <!-- loading state -->
+        <div class="member-loading" id="memberLoading">
+            <i class="hgi-stroke hgi-loading-03 spin" aria-hidden="true"></i>
+            <span>Loading profile&hellip;</span>
+        </div>
+
+        <!-- not found state -->
+        <div class="member-not-found" id="memberNotFound" hidden>
+            <i class="hgi-stroke hgi-search-remove" aria-hidden="true"></i>
+            <h1>We couldn't find that member</h1>
+            <p>Head back to the members page to keep browsing.</p>
+            <a class="member-back-link" href="members.html">Back to members</a>
+        </div>
+
+        <!-- profile view (shown once data loads) -->
+        <div class="member-profile" id="memberProfile" hidden>
+
+            <section class="member-profile-hero">
+                <div class="member-profile-avatar" id="memberAvatar"></div>
+                <div class="member-profile-info">
+                    <h1 class="member-profile-name" id="memberName"></h1>
+                    <span class="member-profile-role" id="memberRole"></span>
+                    <p class="member-profile-meta" id="memberMeta"></p>
+                    <p class="member-profile-description" id="memberDescription"></p>
+                </div>
+            </section>
+
+            <section class="member-articles-section">
+                <h2 class="member-articles-heading">Content</h2>
+
+                <div class="member-articles-loading" id="memberArticlesLoading">
+                    <i class="hgi-stroke hgi-loading-03 spin" aria-hidden="true"></i>
+                    <span>Loading content&hellip;</span>
+                </div>
+
+                <div class="member-articles-grid" id="memberArticlesGrid" hidden></div>
+
+                <div class="member-articles-empty" id="memberArticlesEmpty" hidden>
+                    <i class="hgi-stroke hgi-pencil-edit-01" aria-hidden="true"></i>
+                    <p>Drawing up something great</p>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Reusable Footer Component -->
+    <site-footer>
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Science by Sketch</div>
+                    <p>Where science meets storytelling</p>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Explore</h3>
+                    <a href="about.html">About</a>
+                    <a href="articles.html">Content</a>
+                    <a href="newsletter.html">Newsletter</a>
+                    <a href="members.html">Members</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Get Involved</h3>
+                    <a href="index.html#volunteer">For Schools</a>
+                    <a href="index.html#volunteer">Volunteer</a>
+                    <a href="mailto:sciencebysketch@gmail.com">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">TikTok</a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Science by Sketch</p>
+                <p>Have a question for us? Email us at <a href="mailto:sciencebysketch@gmail.com">sciencebysketch@gmail.com</a></p>
+            </div>
+        </footer>
+    </site-footer>
+
+    <script src="components/components.js"></script>
+    <script src="script.js"></script>
+    <script src="articles-data.js"></script>
+    <script src="member.js"></script>
+</body>
+
+</html>

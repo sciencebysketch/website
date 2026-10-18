@@ -20,7 +20,7 @@ class SiteFooter extends HTMLElement {
                     <div class="footer-col">
                         <h3>Explore</h3>
                         <a href="about.html">About</a>
-                        <a href="articles.html">Articles</a>
+                        <a href="articles.html">Content</a>
                         <a href="newsletter.html">Newsletter</a>
                         <a href="members.html">Members</a>
                     </div>

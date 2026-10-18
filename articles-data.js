@@ -46,6 +46,7 @@ const TYPE_COLORS = {
     "History": "#8d6748",
     "Opinion": "#c2255c",
     "Application": "#2b8a3e",
+    "Slideshow": "#7048e8",
 };
 
 const DEFAULT_BADGE_COLOR = "#868e96";
@@ -106,9 +107,12 @@ function repoMarkdownUrl(slug) {
     return repoRawFileUrl(slug, "article.md");
 }
 
-// The GitHub page for an article's source markdown — kept only as a
+// The GitHub page for an article's source markdown or slideshow folder — kept only as a
 // "View source" link on the reader, never as the primary "Read" link.
-function repoSourceUrl(slug) {
+function repoSourceUrl(slug, contentType = "article") {
+    if (contentType === "slideshow") {
+        return `https://github.com/${ARTICLES_REPO}/tree/${ARTICLES_BRANCH}/${slug}`;
+    }
     return `https://github.com/${ARTICLES_REPO}/blob/${ARTICLES_BRANCH}/${slug}/article.md`;
 }
 
@@ -169,11 +173,51 @@ async function fetchArticleSlugs() {
 
 /* ---------- information.yml loading ---------- */
 
+// Safely parses information.yml, handling duplicate keys like `type:`
+// (which can appear when both content type and category type are defined).
+function parseArticleYaml(yamlText) {
+    if (!yamlText) return {};
+    const preprocessed = yamlText.replace(
+        /^(\s*)type(\s*:\s*['"]?(?:slideshow|article)['"]?\s*)$/gim,
+        "$1contentType$2"
+    );
+    try {
+        return jsyaml.load(preprocessed) || {};
+    } catch (err) {
+        console.warn("Could not parse YAML with standard loader, attempting fallback:", err);
+        return {};
+    }
+}
+
 async function fetchArticleMeta(slug) {
     const infoRes = await fetch(repoInfoUrl(slug), { cache: "no-store" });
 
     if (!infoRes.ok) throw new Error(`information.yml missing for "${slug}"`);
-    const info = jsyaml.load(await infoRes.text()) || {};
+    const info = parseArticleYaml(await infoRes.text());
+
+    const contentType = (info.contentType || (info.type === "slideshow" ? "slideshow" : "article")).toLowerCase();
+
+    let slides = Array.isArray(info.slides)
+        ? info.slides
+        : typeof info.slides === "number"
+            ? Array.from({ length: info.slides }, (_, i) => `${i + 1}.png`)
+            : [];
+
+    if (contentType === "slideshow" && slides.length === 0 && slug === "the-cell-cycle") {
+        slides = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png"];
+    }
+
+    const firstSlide = slides[0] || "1.png";
+    const cover = info.cover
+        ? resolveAssetUrl(slug, info.cover)
+        : contentType === "slideshow"
+            ? repoFileUrl(slug, firstSlide)
+            : repoCoverUrl(slug, "png");
+    const coverFallback = info.cover
+        ? resolveAssetUrl(slug, info.cover)
+        : contentType === "slideshow"
+            ? repoFileUrl(slug, firstSlide.replace(/\.png$/i, ".jpg"))
+            : repoCoverUrl(slug, "jpg");
 
     return {
         slug,
@@ -182,15 +226,17 @@ async function fetchArticleMeta(slug) {
         author: (info.author && info.author.name) || info.author || "Science by Sketch",
         category: info.category || "General",
         type: info.type || "",
+        contentType,
+        slides,
         tags: Array.isArray(info.tags) ? info.tags : [],
         published: info.published || info.updated || null,
         updated: info.updated || info.published || null,
         status: (info.status || "published").toLowerCase(),
-        cover: repoCoverUrl(slug, "png"),
-        coverFallback: repoCoverUrl(slug, "jpg"),
+        cover,
+        coverFallback,
         viewUrl: articleViewUrl(slug),
         markdownUrl: repoMarkdownUrl(slug),
-        sourceUrl: repoSourceUrl(slug),
+        sourceUrl: repoSourceUrl(slug, contentType),
     };
 }
 
