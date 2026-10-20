@@ -98,6 +98,24 @@
 
             <div class="article-content" id="articleContent"></div>
 
+            <!-- Citations dropdown — only revealed on article pages that ship
+                 a citations.md (see loadCitations in article.js). -->
+            <div class="article-citations" id="articleCitations" hidden>
+                <div class="citations-card">
+                    <button type="button" class="citations-toggle" id="citationsToggle"
+                        aria-expanded="false" aria-controls="citationsDropdown">
+                        <span class="citations-toggle-label">
+                            <i class="hgi-stroke hgi-quote" aria-hidden="true"></i>
+                            <span>Citations</span>
+                        </span>
+                        <i class="hgi-stroke hgi-arrow-down-01 citations-chevron" aria-hidden="true"></i>
+                    </button>
+                    <div class="citations-dropdown" id="citationsDropdown" aria-hidden="true">
+                        <div class="citations-list" id="citationsList"></div>
+                    </div>
+                </div>
+            </div>
+
             <footer class="article-footer">
                 <a class="articles-search-link" href="articles.html">
                     <i class="hgi-stroke hgi-arrow-left-01" aria-hidden="true"></i>

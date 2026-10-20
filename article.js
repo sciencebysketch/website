@@ -25,6 +25,11 @@ const els = {
     readTime: document.getElementById("articleReadTime"),
     tags: document.getElementById("articleTags"),
     content: document.getElementById("articleContent"),
+    // Citations dropdown (only revealed when the article ships a citations.md)
+    citations: document.getElementById("articleCitations"),
+    citationsToggle: document.getElementById("citationsToggle"),
+    citationsDropdown: document.getElementById("citationsDropdown"),
+    citationsList: document.getElementById("citationsList"),
     sourceLink: document.getElementById("articleSourceLink"),
 };
 
@@ -250,6 +255,68 @@ function renderMarkdown(markdown, article) {
     convertAdjacentImageCaptions(els.content);
     if (article) {
         mountEmbeddedSlideshows(els.content, article);
+    }
+}
+
+/* ---------- citations dropdown ----------
+   Each article folder may ship an optional citations.md (references for
+   the piece). When it exists we render it straight into the dropdown
+   panel; when it doesn't (404 / empty), the whole dropdown stays hidden
+   so other articles are never cluttered by an empty box. */
+
+function setDropdownOpen(open) {
+    const isExpanded = Boolean(open);
+    els.citationsToggle.setAttribute("aria-expanded", String(isExpanded));
+    const panel = els.citationsDropdown;
+    if (!panel) return;
+    if (isExpanded) {
+        panel.setAttribute("aria-hidden", "false");
+        // Measure the natural height so the transition targets the real size.
+        panel.style.setProperty("--citations-open-height", panel.scrollHeight + "px");
+        panel.classList.add("is-open");
+    } else {
+        panel.setAttribute("aria-hidden", "true");
+        panel.style.removeProperty("--citations-open-height");
+        panel.classList.remove("is-open");
+    }
+}
+
+function toggleCitationsDropdown() {
+    const isOpen = els.citationsToggle.getAttribute("aria-expanded") === "true";
+    setDropdownOpen(!isOpen);
+}
+
+async function loadCitations(article) {
+    // Reset to a collapsed, empty state every time we (re)load.
+    setDropdownOpen(false);
+    els.citationsList.innerHTML = "";
+
+    const url = article && article.citationsUrl;
+    if (!url) {
+        els.citations.hidden = true;
+        return;
+    }
+
+    try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) {
+            // No citations.md for this article — keep the dropdown hidden.
+            els.citations.hidden = true;
+            return;
+        }
+        const markdown = await res.text();
+        if (!markdown.trim()) {
+            els.citations.hidden = true;
+            return;
+        }
+
+        marked.setOptions({ gfm: true, breaks: false, headerIds: false, mangle: false });
+        els.citationsList.innerHTML = marked.parse(markdown);
+
+        els.citations.hidden = false;
+    } catch (err) {
+        console.error("Failed to load citations:", err);
+        els.citations.hidden = true;
     }
 }
 
@@ -568,8 +635,10 @@ function init() {
             return;
         }
         renderMeta(article);
+        loadCitations(article);
         loadArticle(article);
         els.retryLoad.addEventListener("click", () => loadArticle(article));
+        els.citationsToggle?.addEventListener("click", toggleCitationsDropdown);
     });
 }
 

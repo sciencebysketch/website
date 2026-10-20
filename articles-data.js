@@ -107,6 +107,13 @@ function repoMarkdownUrl(slug) {
     return repoRawFileUrl(slug, "article.md");
 }
 
+// Optional references for an article, written as markdown in a sibling
+// citations.md (not every article ships one). The reader fetches this
+// on its own and stays quiet when the file is absent (404).
+function repoCitationsUrl(slug) {
+    return repoRawFileUrl(slug, "citations.md");
+}
+
 // The GitHub page for an article's source markdown or slideshow folder — kept only as a
 // "View source" link on the reader, never as the primary "Read" link.
 function repoSourceUrl(slug, contentType = "article") {
@@ -236,6 +243,7 @@ async function fetchArticleMeta(slug) {
         coverFallback,
         viewUrl: articleViewUrl(slug),
         markdownUrl: repoMarkdownUrl(slug),
+        citationsUrl: repoCitationsUrl(slug),
         sourceUrl: repoSourceUrl(slug, contentType),
     };
 }
