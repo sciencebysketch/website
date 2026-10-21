@@ -54,6 +54,9 @@ class SiteHeader extends HTMLElement {
 
         // Mobile drawer toggle
         if (navToggle && siteNav) {
+            // Mark as bound so standalone script.js won't double-bind a second
+            // click listener (which would open-then-close the menu on tap).
+            navToggle.dataset.hasListener = 'true';
             const toggleMenu = (open) => {
                 const isOpen = open !== undefined ? open : !siteNav.classList.contains('open');
                 siteNav.classList.toggle('open', isOpen);
